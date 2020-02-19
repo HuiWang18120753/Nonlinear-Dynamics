@@ -1,0 +1,26 @@
+#模型方程：X_n+1=miu-X_n^2,其中 miu~[0,2],x_n~[-1,1];
+import matplotlib.pyplot as plt
+import numpy as np
+
+#定义一个能够以浮点型作为步长的函数，range函数步长必须是整型
+def frange(start,end,path):    
+    i=start
+    while i<end:
+        yield i
+        i=i+path
+#计算一维参数空间miu和状态空间x的值
+x=[]
+miu=[]
+for i in frange(0,2,0.01):
+    x_n=0.1
+    for j in range(1,1000):
+        #if x_n>=-1 and x_n<=1:     #如果吧x范围设定为[-1,1]，那么出来的图就不对称好看，这是为什么？
+            x.append(x_n)
+            miu.append(i)
+            x_n=i-x_n*x_n
+ #绘图
+plt.scatter(miu,x,alpha=0.5,edgecolors= 'white')
+plt.title('Logistic Model')
+plt.xlabel('miu')
+plt.ylabel('x')
+plt.show()
